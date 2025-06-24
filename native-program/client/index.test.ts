@@ -16,7 +16,7 @@ describe("Counter Program Tests", () => {
     let dataAccount: Keypair;
     let userAccount: Keypair;
   
-    const programPath = path.join(import.meta.dir, "sumcontract.so");
+    const programPath = path.join(import.meta.dir, "./cal.so");
   
     beforeAll(() => {
       svm = new LiteSVM();

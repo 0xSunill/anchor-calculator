@@ -54,7 +54,9 @@ fn process_instruction(
         Instruction::Add { amount } => {
             counter_state.count = counter_state.count.saturating_add(amount);
         },
-        
+        Instruction::Subtract { amount } => {
+            counter_state.count = counter_state.count.saturating_sub(amount);
+        },
     }
     
     counter_state.serialize(&mut *data_account.data.borrow_mut())?;

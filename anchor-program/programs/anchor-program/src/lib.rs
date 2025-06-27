@@ -5,23 +5,24 @@ declare_id!("3VCvp1YPmgXYxafYx9kvCDm2DcoufXuhd8j7P7E861Qq");
 #[program]
 pub mod anchor_program {
     use core::num;
-
     use super::*;
-
-    pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
+    pub fn initialize(ctx: Context<Initialize>, inititial_value: u32) -> Result<()> {
+        ctx.accounts.account.numb = inititial_value;
         Ok(())
     }
     pub fn add(ctx: Context<Add>, num: u32) -> Result<()> {
+        ctx.accounts.account.numb = ctx.accounts.account.numb + num;
         Ok(())
     }
     pub fn double(ctx: Context<Double>) -> Result<()> {
+        ctx.accounts.account.numb = ctx.accounts.account.numb * 2;
         Ok(())
     }
 }
 
 #[account]
 struct DataShape {
-    pub num: u32,
+    pub numb: u32,
 }
 
 #[derive(Accounts)]

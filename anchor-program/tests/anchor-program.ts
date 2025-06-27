@@ -1,16 +1,29 @@
 import * as anchor from "@coral-xyz/anchor";
 import { Program } from "@coral-xyz/anchor";
 import { AnchorProgram } from "../target/types/anchor_program";
+import { assert } from "chai";
+// import { AnchorProgram } from "../target/types/anchor_program";
 
 describe("anchor-program", () => {
-  // Configure the client to use the local cluster.
+
+
   anchor.setProvider(anchor.AnchorProvider.env());
+
+  const newAccount = anchor.web3.Keypair.generate();
 
   const program = anchor.workspace.anchorProgram as Program<AnchorProgram>;
 
   it("Is initialized!", async () => {
     // Add your test here.
-    const tx = await program.methods.initialize().rpc();
+    const tx = await program.methods.initialize(7)
+      .accounts({
+        signer: anchor.getProvider().wallet.publicKey,
+        account: newAccount.publicKey
+      })
+      .signers([newAccount])
+      .rpc();
     console.log("Your transaction signature", tx);
+    const account = await program.account.dataShape.fetch(newAccount.publicKey)
+    assert(account.numb == 7)
   });
 });

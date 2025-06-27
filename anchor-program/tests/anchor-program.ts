@@ -56,4 +56,58 @@ describe("anchor-program", () => {
     const account = await program.account.dataShape.fetch(newAccount.publicKey)
     assert(account.numb == 20)
   });
+
+
+  it("Is subtract", async () => {
+
+    const tx = await program.methods.sub(10)
+      .accounts({
+        signer: anchor.getProvider().wallet.publicKey,
+        account: newAccount.publicKey
+      })
+
+      .rpc();
+    console.log("Your transaction signature", tx);
+    const account = await program.account.dataShape.fetch(newAccount.publicKey)
+    assert(account.numb == 10)
+  });
+
+
+
+
+
+
+  it("Is multiply", async () => {
+
+    const tx = await program.methods.mul(10)
+      .accounts({
+        signer: anchor.getProvider().wallet.publicKey,
+        account: newAccount.publicKey
+      })
+
+      .rpc();
+    console.log("Your transaction signature", tx);
+    const account = await program.account.dataShape.fetch(newAccount.publicKey)
+    assert(account.numb == 100)
+  });
+
+
+  it("Is devide", async () => {
+
+    const tx = await program.methods.div(5)
+      .accounts({
+        signer: anchor.getProvider().wallet.publicKey,
+        account: newAccount.publicKey
+      })
+
+      .rpc();
+    console.log("Your transaction signature", tx);
+    const account = await program.account.dataShape.fetch(newAccount.publicKey)
+    assert(account.numb == 20)
+  });
+
+ 
+
+
+
 });
